@@ -122,6 +122,13 @@
           this.setState({ monthEmployee: employeeName });
         }
 
+        handleDeleteEmployee = id => {
+          const { list } = this.state;
+          const employeeIndex = list.findIndex(employee => employee.id === id);
+          list.splice(employeeIndex, 1);
+          this.setState({ list });
+        }
+
         render() {
           return (
             <div className='container'>
@@ -141,7 +148,7 @@
 
               {this.state.list.map(employee => (
                 <EmployeeCard employeeData={employee} key={employee.id} selectMonthEmployee={this.handleSelectMonthEmployee}
-                isMonthEmployee={employee.name === this.state.monthEmployee} />
+                isMonthEmployee={employee.name === this.state.monthEmployee} deleteEmployee={this.handleDeleteEmployee} />
               ))}
             </div>
           )
@@ -153,6 +160,7 @@
         const { employeeData, isMonthEmployee } = props;
 
         const selectMonthEmployee = () => props.selectMonthEmployee(employeeData.name);
+        const deleteEmployee = () => props.deleteEmployee(employeeData.id);
 
         return (
           <div className={isMonthEmployee ? 'employee-card month-employee' : 'employee-card'}>
@@ -171,7 +179,7 @@
               <span>Editar</span>
             </button>
 
-            <button className='button is-danger is-outlined'>
+            <button className='button is-danger is-outlined' onClick={deleteEmployee}>
               <span className='icon is-small'>
                 <i className='fas fa-times' />
               </span>
