@@ -80,6 +80,7 @@
       // Diseño de Idea: https://dribbble.com/shots/6131920-Employee-page
 
       class App extends React.Component {
+
         constructor() {
           super()
           const employees = Array.from({ length: 30 }, () => ({
@@ -100,6 +101,7 @@
             dropdownActive: false,
           }
         }
+
         handleAddEmployeeSubmit = event => {
           event.preventDefault()
           const { list, employeeName } = this.state
@@ -112,26 +114,32 @@
           const newList = [newEmployee, ...list]
           this.setState({ list: newList })
         }
+
         handleAddEmployeeChange = event => {
           const { value } = event.target
           this.setState({ employeeName: value })
         }
+
         handleMonthEmployee = id => {
           this.setState({ idMonthEmployee: id })
         }
+
         handleRemoveEmployee = id => {
           const { list } = this.state
           const listWithoutEmployee = list.filter(employee => employee.id !== id)
           this.setState({ list: listWithoutEmployee })
         }
+
         handleDropdownActive = () => this.setState(prevState => ({ dropdownActive: !prevState.dropdownActive }))
+        
         handleSelectSector = sector => {
           const { listBackup } = this.state
           const listFilteredBySector = listBackup.filter(employee => employee.sector === sector)
           this.setState({ list: listFilteredBySector })
         }
+
         handleGetAllEmployees = () => {
-          const { listBackup, list } = this.state;
+          const { list, listBackup } = this.state;
           this.setState({ list: listBackup });
         }
 
@@ -152,7 +160,7 @@
                 onSelectSector={this.handleSelectSector}
                 onDropdownActive={this.handleDropdownActive}
               />
-              <button className="button is-primary" onClick={this.handleGetAllEmployes}>Ver todos</button>
+              <button className="button is-primary" onClick={this.handleGetAllEmployees}>Ver todos</button>
               {list.map(employee => (
                 <EmployeeCard
                   key={employee.id}
